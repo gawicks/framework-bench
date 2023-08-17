@@ -7,12 +7,11 @@ const sql = postgres({
     database: 'db',
 });
 function getUsers() {
-    const users = sql`SELECT * FROM USERS WHERE dob > DATE('1990-01-01')`;
+    const users = sql`SELECT * FROM USERS WHERE dob > '1990-01-01'`;
     return users;
 }
 const server = http.createServer(async(req, res) => {
     const users = await getUsers();
-    res.write(JSON.stringify(users));
-    res.end();
+    res.end(JSON.stringify(users));
 })
 server.listen(8000);
